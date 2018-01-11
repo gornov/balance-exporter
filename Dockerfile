@@ -3,7 +3,7 @@ ENV GOBIN=$GOPATH/bin
 COPY . /go
 RUN apk add --no-cache git ;\
   go get; \
-  CGO_ENABLED=0 go build -o bin/balance-exporter -a -ldflags '-s'
+  CGO_ENABLED=0 go build -o bin/balance-exporter -a -tags netgo -installsuffix netgo -ldflags '-s'
 
 FROM scratch
 COPY --from=builder /go/bin/balance-exporter /
