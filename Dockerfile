@@ -8,6 +8,6 @@ RUN apk add --no-cache git ca-certificates; \
 
 FROM scratch
 COPY --from=builder /go/bin/balance-exporter /
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 EXPOSE 9913/tcp
 ENTRYPOINT ["/balance-exporter"]
