@@ -17,13 +17,5 @@ balance_exporter
 ### Example of run container command
 
 ```
-docker run --rm balance_exporter -scrape_uri http://localhost/api/WalletsClientBalances/0000
-```
-
-### Deploy to kubernetes
-
-Don't forget to set scrape_uri in deployment.yaml
-
-```
-kubectl apply -f deployment.yaml
+docker run --rm nf404/balance-exporter -scrape_uri http://localhost/api/WalletsClientBalances/0000
 ```
