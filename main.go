@@ -110,6 +110,12 @@ func main() {
 	prometheus.Unregister(prometheus.NewGoCollector())
 	http.Handle(*metricsEndpoint, promhttp.Handler())
 
+	http.HandleFunc("/healthz", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "text/plain")
+		w.WriteHeader(http.StatusOK)
+		fmt.Fprint(w, "ok")
+	})
+
 	log.Printf("Starting Server at : %s", *listenAddress)
 	log.Printf("Metrics endpoint: %s", *metricsEndpoint)
 	log.Printf("Metrics namespace: %s", *metricsNamespace)
