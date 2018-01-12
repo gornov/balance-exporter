@@ -3,9 +3,10 @@ ENV GOBIN=$GOPATH/bin
 COPY . /go
 RUN apk add --no-cache git ;\
   go get; \
-  go build -ldflags '-d -s -w' -o bin/balance-exporter -a -tags netgo -installsuffix netgo
+  CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/balance-exporter \
+  -ldflags '-d -s -w' -a -tags netgo -installsuffix netgo
 
 FROM scratch
 COPY --from=builder /go/bin/balance-exporter /
 EXPOSE 9913/tcp
-ENTRYPOINT ["/balance_exporter"]
+ENTRYPOINT ["/balance-exporter"]
